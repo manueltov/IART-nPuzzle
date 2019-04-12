@@ -10,6 +10,14 @@ public class Board {
         this.board = new int[height][width];
     }
 
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
     public int getPiece(int y, int x) {
         return this.board[y][x];
     }

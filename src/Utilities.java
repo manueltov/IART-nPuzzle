@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Utilities {
@@ -9,13 +10,18 @@ public class Utilities {
         StringBuffer nums = fileToBuff(fileName);
 
         Board board = new Board(Character.getNumericValue(nums.charAt(0)),Character.getNumericValue(nums.charAt(2)));
-        nums.delete(0,3);
-        /*for (int i = 8; i < nums.length ; i++){
-            Point onePoint = new Point(nums[i],nums[++i]);
-            Point twoPoint = new Point(nums[++i], nums[++i]);
-            Piece piece = new Piece(onePoint, twoPoint);
-            board.insertPieceBoard(piece);
-        }*/
+        nums.delete(0,4);
+        String[] vecStr = new String[(nums.length()/2)+1];
+        vecStr = nums.toString().split(" ");
+        int k = 0;
+        for (int i = 0 ; i < board.getHeight() ; i++){
+            for (int j = 0 ; j < board.getWidth() ; j++){
+                String str = vecStr[k];
+                int aux = Integer.parseInt(str);
+                board.addPiece(aux, i, j);
+                k++;
+            }
+        }
         return board;
     }
 
@@ -39,4 +45,16 @@ public class Utilities {
         return sbuf;
     }
 
+    public static int userInterface() {
+        int level = 0;
+        int maxLevel = 10;
+        Scanner sc = new Scanner(System.in);
+        while (level < 1 | level > maxLevel) {
+            System.out.println("Chose a level between 1 and " + maxLevel + ":");
+            String strlevel = sc.nextLine();
+            level = Integer.parseInt(strlevel);
+        }
+        sc.close();
+        return level;
+    }
 }
